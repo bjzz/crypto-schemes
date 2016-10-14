@@ -8,7 +8,7 @@
 #
 #
 # ------------------------------------------------------------------------------
-TARGET   :=enryption
+TARGET   :=encryption
 LIBS     :=cryptopp
 
 PATH_LIB :=../../lib
