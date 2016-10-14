@@ -17,7 +17,7 @@ using namespace std;
 #include "cryptopp/sha.h"
 #include "cryptopp/files.h"
 #include "cryptopp/osrng.h"
-#include "cryptopp/SecBlock.h"
+#include "cryptopp/secblock.h"
 USING_NAMESPACE(CryptoPP)
 
 // Crypto++ Library
