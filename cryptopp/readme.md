@@ -19,11 +19,6 @@ strip --strip-debug libcryptopp.so
 
 demo 的编译：`windows` 下通过 `demo/cryptopp.sln` 编译，`linux` 下通过各 demo 中的 `makefile` 编译。
 
-在 `linux` 下，编译使用 `cryptopp` 动态连接库，运行时会提示找不到库文件，就算将库文件拷贝到可执行程序同级目录，也不行。这是因此 `linux` 并不会主动去当前目录搜索动态库文件，需要将当前目录增加到库文件搜索路径中：
-```sh
-$ export LD_LIBRARY_PATH=./
-```
-
 
 # 目录结构
 ```sh
@@ -43,7 +38,7 @@ $ export LD_LIBRARY_PATH=./
 
 # 解决的 bug
 
-windows 下调用 `cryptopp` 动态库，使用 `RSAES_PKCS1v15_Encryptor`时，vs2010会出现连接错误：
+`windows` 下调用 `cryptopp` 动态库，使用 `RSAES_PKCS1v15_Encryptor` 时，`vs2010` 会出现连接错误：
 ```sh
 error LNK2001: 无法解析的外部符号 "public: virtual struct CryptoPP::DecodingResult __thiscall CryptoPP::PKCS_EncryptionPaddingScheme::Unpad(unsigned char const *,unsigned int,unsigned char *,class CryptoPP::NameValuePairs const &)const " (?Unpad@PKCS_EncryptionPaddingScheme@CryptoPP@@UBE?AUDecodingResult@2@PBEIPAEABVNameValuePairs@2@@Z)
 error LNK2001: 无法解析的外部符号 "public: virtual void __thiscall CryptoPP::PKCS_EncryptionPaddingScheme::Pad(class CryptoPP::RandomNumberGenerator &,unsigned char const *,unsigned int,unsigned char *,unsigned int,class CryptoPP::NameValuePairs const &)const " (?Pad@PKCS_EncryptionPaddingScheme@CryptoPP@@UBEXAAVRandomNumberGenerator@2@PBEIPAEIABVNameValuePairs@2@@Z)

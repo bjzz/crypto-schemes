@@ -11,36 +11,42 @@
 TARGET   :=encryption
 LIBS     :=cryptopp
 
+# ------------------------------------------------------------------------------
+# path
+# ------------------------------------------------------------------------------
 PATH_LIB :=../../lib
 PATH_INC :=../../include
 PATH_SRC :=.
 PATH_OBJ :=../obj/$(TARGET)/
 PATH_BIN :=../bin/
 
+LINK     :=g++
 CXX      :=g++
 CPPFLAGS :=-g -Wall -O3
 CPPFLAGS +=$(addprefix -I,$(PATH_INC))
+LIBFLAGS :=-Wl,--rpath='$$ORIGIN'
+LIBFLAGS +=$(addprefix -L,$(PATH_LIB)) $(addprefix -l,$(LIBS))
 
 RM :=rm -f
 
 BINS :=$(addprefix $(PATH_BIN),$(TARGET))
 SRCS :=$(foreach n,$(PATH_SRC),$(wildcard $(addsuffix .cpp,$(n)/*))) 
 OBJS :=$(addprefix $(PATH_OBJ),$(addsuffix .o,$(basename $(notdir $(SRCS)))))
-DEPS_MISS :=$(filter-out $(wildcard $(DEPS)),$(DEPS))
 
 
-.PHONY: all clean rebuild info link
+.PHONY: all clean rebuild info link prepare
 
-all: $(PATH_BIN) $(PATH_OBJ) $(BINS)
+all: prepare $(BINS) 
 
-$(PATH_BIN): ; -mkdir -p $(PATH_BIN)
-$(PATH_OBJ): ; -mkdir -p $(PATH_OBJ)
+prepare: link
+	@-mkdir -p $(PATH_BIN)
+	@-mkdir -p $(PATH_OBJ)
 
 $(PATH_OBJ)%.o: %.cpp
 	$(CXX) $(CPPFLAGS) -c -o $@ $<
 
-$(BINS): $(OBJS) link
-	$(CXX) -o $(BINS) $(OBJS) $(addprefix -L,$(PATH_LIB)) $(addprefix -l,$(LIBS))
+$(BINS): $(OBJS)
+	$(LINK) -o $(BINS) $(OBJS) $(LIBFLAGS)
 
 link:
 	@ln -s -f $(PATH_LIB)/libcryptopp.so $(PATH_BIN)/libcryptopp.so.5.6
