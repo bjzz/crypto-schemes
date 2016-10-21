@@ -24,6 +24,7 @@ demo 的编译：`windows` 下通过 `demo/cryptopp.sln` 编译，`linux` 下通
 ```sh
     demo\               # demo
         encryption\     # 公钥加密、私钥解密
+        signature\      # 私钥签名、公钥验签
     include\            # cryptopp 头文件
         cryptopp\ 
     lib\                # cryptopp 库文件
