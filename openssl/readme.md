@@ -23,6 +23,12 @@ make
 
 `demo` 的编译：`windows` 下通过 `demo/openssl.sln` 编译，`linux` 下通过各 `demo` 中的 `makefile` 编译。
 
+测试 `demo` 需要先创建 RSA 私钥和公钥，命令：
+```sh
+openssl genrsa -out prikey.pem 2048
+openssl rsa -in prikey.pem -pubout -out pubkey.pem
+```
+
 
 # 目录结构 #
 ```sh
